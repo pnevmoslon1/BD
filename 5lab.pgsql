@@ -4,11 +4,6 @@ FROM Athlete AS a
 INNER JOIN Athlete_Sport AS asport ON a.Id = asport.AthleteId
 INNER JOIN Sport AS s ON asport.SportId = s.Id;
 
-SELECT a.FirstName, a.LastName, s.Name AS SportName
-FROM Athlete AS a
-LEFT JOIN Athlete_Sport AS asport ON a.Id = asport.AthleteId
-LEFT JOIN Sport AS s ON asport.SportId = s.Id;
-
 
 SELECT a.FirstName, a.LastName, s.Name AS SportName
 FROM Athlete AS a
