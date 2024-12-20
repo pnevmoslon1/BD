@@ -63,36 +63,10 @@ BEFORE INSERT ON PlacingAthlete
 FOR EACH ROW
 EXECUTE FUNCTION validate_room_capacity();
 
--- Попытка добавить нового спортсмена в переполненную комнату
+
+SELECT * FROM  actionlog;
+
 INSERT INTO PlacingAthlete (AthleteId, RoomId, PlacingDate)
 VALUES (3, 1, CURRENT_DATE);
 
 
-
-
-
-CREATE OR REPLACE FUNCTION sync_hotel_address()
-RETURNS TRIGGER AS $$
-BEGIN
-    UPDATE Rooms
-    SET Name = CONCAT(Name, ' (Updated Address)')
-    WHERE HotelId = NEW.Id;
-
-    RETURN NULL;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER trigger_sync_hotel_address
-AFTER UPDATE OF Address ON Hotel
-FOR EACH ROW
-EXECUTE FUNCTION sync_hotel_address();
-
-
--- Обновляем адрес отеля
-UPDATE Hotel
-SET Address = '123 New Street'
-WHERE Id = 1;
-
--- Проверяем связанные комнаты
-SELECT * FROM Rooms WHERE HotelId = 1;
--- Ожидаемый результат: все названия комнат обновлены с пометкой "(Updated Address)"
