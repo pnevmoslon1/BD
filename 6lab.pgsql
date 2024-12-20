@@ -18,7 +18,6 @@ LEFT JOIN Hotel h ON r.HotelId = h.Id
 WHERE pa.PlacingDate IS NOT NULL;
 
 
-
 CREATE VIEW AthletesWithSports AS
 SELECT
     a.Id AS AthleteId,
@@ -29,10 +28,11 @@ SELECT
 FROM Athlete a
 LEFT JOIN AthleteClass ac ON a.Class = ac.Id
 LEFT JOIN Athlete_Sport asport ON a.Id = asport.AthleteId
-LEFT JOIN Sport s ON asport.SportId = s.Id;
+LEFT JOIN Sport s ON asport.SportId = s.Id
+WHERE ac.Name != 'Любитель';
 
--- Для сложного синтаксиса
+
 SELECT * FROM AthletePlacingDetails;
 
--- Для скрытия столбцов и строк
+
 SELECT * FROM AthletesWithSports;
